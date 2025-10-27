@@ -27,10 +27,10 @@ const setAuthCookies = (res, accessToken, refreshToken) => {
   
   const cookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    // В production используем 'lax' для cross-domain запросов
-    sameSite: isProduction ? 'lax' : 'strict',
-    domain: isProduction ? undefined : undefined // Не указываем domain для cross-subdomain
+    secure: true, // Всегда true для cross-domain
+    // sameSite: 'none' обязательно для cross-domain cookies в HTTPS
+    sameSite: 'none',
+    // Не указываем domain для cross-subdomain работы
   };
 
   res.cookie('accessToken', accessToken, {
