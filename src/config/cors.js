@@ -25,7 +25,8 @@ const allowedOriginsConfig = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = allowedOriginsConfig;
+    // Всегда разрешаем все origins в списке (для упрощения деплоя)
+    const allowedOrigins = [...prodOrigins, 'https://ads-frontend-eight.vercel.app', ...devOrigins];
     
     // Разрешить запросы без origin (мобильные приложения, Postman)
     if (!origin) return callback(null, true);
