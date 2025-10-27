@@ -16,9 +16,16 @@ const prodOrigins = process.env.FRONTEND_URL
   ? [process.env.FRONTEND_URL]
   : ['https://ads-frontend-eight.vercel.app'];
 
+// Всегда добавляем Vercel домен
+const allowedOriginsConfig = [
+  ...prodOrigins,
+  'https://ads-frontend-eight.vercel.app',
+  ...devOrigins
+];
+
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = [...prodOrigins, ...devOrigins];
+    const allowedOrigins = allowedOriginsConfig;
     
     // Разрешить запросы без origin (мобильные приложения, Postman)
     if (!origin) return callback(null, true);
