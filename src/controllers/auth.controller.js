@@ -23,10 +23,14 @@ const generateTokens = (userId) => {
 
 // Установка cookies для аутентификации
 const setAuthCookies = (res, accessToken, refreshToken) => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  
   const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict'
+    secure: isProduction,
+    // В production используем 'lax' для cross-domain запросов
+    sameSite: isProduction ? 'lax' : 'strict',
+    domain: isProduction ? undefined : undefined // Не указываем domain для cross-subdomain
   };
 
   res.cookie('accessToken', accessToken, {
