@@ -3,15 +3,23 @@ const User = require('../models/User.model');
 
 const authenticate = async (req, res, next) => {
   try {
+    // Логирование для отладки
+    console.log('Auth middleware called');
+    console.log('Cookies:', req.cookies);
+    console.log('Authorization header:', req.headers.authorization);
+    
     const token = req.cookies?.accessToken || 
                   req.headers.authorization?.split(' ')[1];
     
     if (!token) {
+      console.log('No token found in cookies or headers');
       return res.status(401).json({ 
         success: false,
         error: { message: 'Токен не предоставлен', code: 'AUTH_REQUIRED' }
       });
     }
+    
+    console.log('Token found:', token.substring(0, 20) + '...');
     
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.userId);

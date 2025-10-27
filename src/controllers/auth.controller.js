@@ -150,8 +150,21 @@ const login = async (req, res, next) => {
 
 // Выход
 const logout = async (req, res) => {
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
+  // Очищаем cookies с теми же опциями что и устанавливались
+  res.clearCookie('accessToken', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    domain: undefined
+  });
+  
+  res.clearCookie('refreshToken', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    domain: undefined
+  });
+  
   res.json({ success: true, message: 'Выход выполнен успешно' });
 };
 
