@@ -11,11 +11,10 @@ const devOrigins = [
   'http://127.0.0.1:5174'
 ];
 
-// Production origins
-const prodOrigins = [
-  'https://yourdomain.com',
-  'https://app.yourdomain.com'
-];
+// Production origins - берем из переменной окружения
+const prodOrigins = process.env.FRONTEND_URL 
+  ? [process.env.FRONTEND_URL]
+  : ['https://ads-frontend-eight.vercel.app'];
 
 const corsOptions = {
   origin: (origin, callback) => {
