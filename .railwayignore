@@ -1,0 +1,9 @@
+# Railway ignore file
+# Используется только для Railway deployment
+
+logs/
+node_modules/
+*.log
+.env
+.env.local
+
