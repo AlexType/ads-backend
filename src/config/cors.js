@@ -18,9 +18,7 @@ const prodOrigins = process.env.FRONTEND_URL
 
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = process.env.NODE_ENV === 'production' 
-      ? prodOrigins 
-      : [...prodOrigins, ...devOrigins];
+    const allowedOrigins = [...prodOrigins, ...devOrigins];
     
     // Разрешить запросы без origin (мобильные приложения, Postman)
     if (!origin) return callback(null, true);
